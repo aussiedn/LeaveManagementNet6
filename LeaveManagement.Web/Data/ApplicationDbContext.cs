@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
+using LeaveManagement.Web.Models;
 
 namespace LeaveManagement.Web.Data
 {
