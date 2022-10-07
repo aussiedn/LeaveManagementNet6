@@ -15,7 +15,7 @@ namespace LeaveManagement.Web.Repositories
         private readonly ILeaveTypeRepository leaveTypeRepository;
         private readonly IMapper mapper;
 
-        public LeaveAllocationRepository(ApplicationDbContext context, 
+        public LeaveAllocationRepository(ApplicationDbContext context,
             UserManager<Employee> userManager,
             ILeaveTypeRepository leaveTypeRepository,
             IMapper mapper) : base(context)
@@ -52,7 +52,7 @@ namespace LeaveManagement.Web.Repositories
                 .Include(q => q.LeaveType)
                 .FirstOrDefaultAsync(q => q.Id == id);
 
-            if(allocation == null)
+            if (allocation == null)
             {
                 return null;
             }
@@ -65,7 +65,7 @@ namespace LeaveManagement.Web.Repositories
             return model;
         }
 
-            public async Task LeaveAllocation(int leaveTypeId)
+        public async Task LeaveAllocation(int leaveTypeId)
         {
             var employees = await userManager.GetUsersInRoleAsync(Roles.User);
             var period = DateTime.Now.Year;
@@ -101,6 +101,11 @@ namespace LeaveManagement.Web.Repositories
             await UpdateAsync(leaveAllocation);
 
             return true;
+        }
+
+        public async Task<LeaveAllocation?> GetEmployeeAllocation(string employeeId, int leaveTypeId)
+        {
+            return await context.LeaveAllocations.FirstOrDefaultAsync(q => q.EmployeeId == employeeId && q.LeaveTypeId == leaveTypeId);
         }
     }
 }
