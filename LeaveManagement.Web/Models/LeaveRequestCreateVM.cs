@@ -9,10 +9,14 @@ namespace LeaveManagement.Web.Models
     {
         [Required]
         [Display(Name = "Start Date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
+        [DataType(DataType.Date)]
         public DateTime? StartDate { set; get; }
 
         [Required]
         [Display(Name = "End Date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
+        [DataType(DataType.Date)]
         public DateTime? EndDate { set; get; }
 
         [Required]
@@ -25,12 +29,12 @@ namespace LeaveManagement.Web.Models
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if(StartDate > EndDate)
+            if (StartDate > EndDate)
             {
                 yield return new ValidationResult("The Start Date Must Be Before End Date", new[] { nameof(StartDate), nameof(EndDate) });
             }
 
-            if(RequestComments?.Length > 250)
+            if (RequestComments?.Length > 250)
             {
                 yield return new ValidationResult("Comments are too long", new[] { nameof(RequestComments) });
             }
