@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using LeaveManagement.Web.Constants;
-using LeaveManagement.Web.Contacts;
-using LeaveManagement.Web.Data;
-using LeaveManagement.Web.Models;
-using LeaveManagement.Web.Repositories;
-using Microsoft.AspNetCore.Http;
+using LeaveManagement.Common.Constants;
+using LeaveManagement.Data;
+using LeaveManagement.Application.Contacts;
+using LeaveManagement.Common.Models;
+using LeaveManagement.Application.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -61,13 +60,13 @@ namespace LeaveManagement.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if(await leaveAllocationRepository.UpdateEmployeeAllocation(model))
+                    if (await leaveAllocationRepository.UpdateEmployeeAllocation(model))
                     {
                         return RedirectToAction(nameof(ViewAllocations), new { id = model.EmployeeId });
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, "An Error Has Occurred. Please Try Again Later");
             }
